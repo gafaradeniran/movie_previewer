@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:movie_previewer/widgets/model_cards/popular_card.dart';
-import '../../core/models/popular_model.dart';
+import 'package:movie_previewer/core/models/latest_model.dart';
+import 'package:movie_previewer/widgets/model_cards/latest_card.dart';
 
-class DisplayPopularMovies extends StatelessWidget {
-  const DisplayPopularMovies({super.key, required this.popularModel});
-
-  final Future<PopularModel> popularModel;
-
+class DisplayLatestMovie extends StatelessWidget {
+  const DisplayLatestMovie({super.key, required this.latestModel});
+  final Future<LatestModel> latestModel;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 310,
-      child: FutureBuilder<PopularModel>(
-          future: popularModel,
+      height: 300,
+      child: FutureBuilder<LatestModel>(
+          future: latestModel,
           builder: ((context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.none:
@@ -33,12 +31,12 @@ class DisplayPopularMovies extends StatelessWidget {
                     ),
                   );
                 } else if (snapshot.hasData) {
-                  if (snapshot.data!.results == null) {
+                  if (snapshot.data!.posterPath == null) {
                     return const Center(
                       child: Text('Oops! an error occured 🥴'),
                     );
                   } else {
-                    return PopularCard(data: snapshot.data!);
+                    return LatestCard(data: snapshot.data!);
                   }
                 } else {
                   return const Text('No Internet Connection');

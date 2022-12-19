@@ -4,7 +4,10 @@ import 'dart:io';
 import 'package:movie_previewer/core/base_api.dart';
 import 'package:movie_previewer/core/base_url.dart';
 import 'package:http/http.dart' as http;
+import 'package:movie_previewer/core/models/cast_model.dart';
 import 'package:movie_previewer/core/models/genres_model.dart';
+import 'package:movie_previewer/core/models/latest_model.dart';
+import 'package:movie_previewer/core/models/similar_movies_model.dart';
 import 'package:movie_previewer/core/models/trending_model.dart';
 import 'package:movie_previewer/core/models/popular_model.dart';
 
@@ -24,7 +27,7 @@ class ApiService extends BaseApi {
             page: trendingModel.page,
             totalResults: trendingModel.totalResults);
       }
-      return TrendingModel(message: res["message"]);
+      return TrendingModel(results: res["results"]);
     } on SocketException catch (_) {
       return TrendingModel(message: 'No internet connection');
     } on TimeoutException catch (_) {
@@ -47,7 +50,7 @@ class ApiService extends BaseApi {
             page: popularModel.page,
             totalResults: popularModel.totalResults);
       }
-      return PopularModel(message: res["message"]);
+      return PopularModel(results: res["results"]);
     } on SocketException catch (_) {
       return PopularModel(message: 'No internet connection');
     } on TimeoutException catch (_) {
@@ -76,5 +79,74 @@ class ApiService extends BaseApi {
       return GenresModel(message: e.toString());
     }
   }
-  //movie casts
+
+  @override
+  Future<LatestModel> latestApi() async {
+    try {
+      final response = await http.get(Uri.parse(url.latestUrl));
+      final res = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        LatestModel latestModel = latestModelFromJson(response.body);
+        return LatestModel(
+            originalTitle: latestModel.originalTitle,
+            backdropPath: latestModel.backdropPath,
+            posterPath: latestModel.posterPath,
+            genres: latestModel.genres,
+            releaseDate: latestModel.releaseDate,
+            status: latestModel.status);
+      }
+      return LatestModel(
+          posterPath: res["posterPath"], originalTitle: res["originalTitle"]);
+    } on SocketException catch (_) {
+      return LatestModel(status: 'No internet connection');
+    } on TimeoutException catch (_) {
+      return LatestModel(status: 'Time out');
+    } catch (e) {
+      return LatestModel(status: e.toString());
+    }
+  }
+
+//movie casts
+  @override
+  Future<CastModel> castApi(id) async {
+    String castUrl =
+        'http://api.themoviedb.org/3/movie/$id/credits?api_key=126ebb02e23df3aeea5c466d49e6fd10';
+
+    try {
+      final response = await http.get(Uri.parse(castUrl));
+
+      final res = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        CastModel castModel = castModelFromJson(response.body);
+
+        return CastModel(cast: castModel.cast, id: castModel.id);
+      }
+      return CastModel(cast: res['cast'], id: res['id']);
+    } on SocketException catch (_) {
+      return CastModel();
+    } on TimeoutException catch (_) {
+      return CastModel();
+    } catch (e) {
+      return CastModel();
+    }
+  }
+
+  @override
+  Future<SimilarMoviesModel> similarMoviesApi(int movieId) async {
+    String similarUrl =
+        'https://api.themoviedb.org/3/movie/$movieId/similar?api_key=126ebb02e23df3aeea5c466d49e6fd10';
+
+    try {
+      final response = await http.get(Uri.parse(similarUrl));
+      final res = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        SimilarMoviesModel similarMoviesModel =
+            similarMoviesModelFromJson(response.body);
+        return SimilarMoviesModel(results: similarMoviesModel.results);
+      }
+      return SimilarMoviesModel(results: res['results']);
+    } catch (e) {
+      return SimilarMoviesModel();
+    }
+  }
 }

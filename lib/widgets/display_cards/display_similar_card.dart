@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:movie_previewer/widgets/model_cards/popular_card.dart';
-import '../../core/models/popular_model.dart';
+import 'package:movie_previewer/core/models/similar_movies_model.dart';
+import 'package:movie_previewer/widgets/model_cards/similar_movies_card.dart';
 
-class DisplayPopularMovies extends StatelessWidget {
-  const DisplayPopularMovies({super.key, required this.popularModel});
+class DisplaySimilarCard extends StatefulWidget {
+  const DisplaySimilarCard({Key? key, required this.similarModel})
+      : super(key: key);
+  final Future<SimilarMoviesModel> similarModel;
 
-  final Future<PopularModel> popularModel;
+  @override
+  State<DisplaySimilarCard> createState() => _DisplaySimilarCardState();
+}
 
+class _DisplaySimilarCardState extends State<DisplaySimilarCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 310,
-      child: FutureBuilder<PopularModel>(
-          future: popularModel,
-          builder: ((context, snapshot) {
+      height: 120,
+      child: FutureBuilder(
+          future: widget.similarModel,
+          builder: (_, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.none:
                 return const Center();
@@ -27,7 +32,7 @@ class DisplayPopularMovies extends StatelessWidget {
                 if (snapshot.hasError) {
                   return const Center(
                     child: Text(
-                      'Unable to retrieve data, please refresh',
+                      'Unable to fetch similar movies, please refresh',
                       style: TextStyle(
                           color: Colors.red, fontWeight: FontWeight.w500),
                     ),
@@ -38,13 +43,13 @@ class DisplayPopularMovies extends StatelessWidget {
                       child: Text('Oops! an error occured 🥴'),
                     );
                   } else {
-                    return PopularCard(data: snapshot.data!);
+                    return SimilarMoviesCard(similarMovieData: snapshot.data!);
                   }
                 } else {
                   return const Text('No Internet Connection');
                 }
             }
-          })),
+          }),
     );
   }
 }

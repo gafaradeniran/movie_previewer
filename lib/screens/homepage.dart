@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_previewer/core/api_service.dart';
+import 'package:movie_previewer/core/models/latest_model.dart';
 import 'package:movie_previewer/core/models/trending_model.dart';
+import 'package:movie_previewer/widgets/display_cards/display_latest_movie.dart';
 
 import '../core/models/popular_model.dart';
 import '../widgets/display_cards/display_popular_card.dart';
@@ -17,12 +19,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late Future<TrendingModel> _trendingModel;
-  late Future<PopularModel> _popularModel;
+  late Future<PopularModel> popularModel;
+  late Future<LatestModel> latestModel;
   @override
   void initState() {
     super.initState();
     _trendingModel = ApiService().trendingApi();
-    _popularModel = ApiService().popularApi();
+    popularModel = ApiService().popularApi();
+    latestModel = ApiService().latestApi();
   }
 
   @override
@@ -52,9 +56,12 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.10,
               width: double.infinity,
-              child: Text(
-                'Welcome. \nYour friendly movie preview app. \nExplore. Enjoy',
-                style: GoogleFonts.lobster(fontSize: 20, color: Colors.white),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  'Welcome. \nYour friendly movie preview app. \nExplore. Enjoy',
+                  style: GoogleFonts.lobster(fontSize: 20, color: Colors.white),
+                ),
               ),
             ),
             const SizedBox(height: 15),
@@ -67,18 +74,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 image: AssetImage('asset/bg/page_bg.png'),
               )),
               child: Text(
-                'Trending Movies',
-                style: GoogleFonts.oleoScript(fontSize: 20),
+                'Trending Movies', 
+                style: GoogleFonts.oleoScript(fontSize: 20, color: Colors.grey),
               ),
             ),
             DisplayTrendingMovies(trendingModel: _trendingModel),
             const SizedBox(height: 8),
-            
             Text(
               'Popular Movies',
               style: GoogleFonts.oleoScript(fontSize: 20),
             ),
-            DisplayPopularMovies(popularModel: _popularModel),
+            DisplayPopularMovies(popularModel: popularModel),
+            Text(
+              'Latest Movies',
+              style: GoogleFonts.oleoScript(fontSize: 20),
+            ),
+            DisplayLatestMovie(latestModel: latestModel)
           ],
         ),
       ),

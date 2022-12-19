@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:movie_previewer/widgets/model_cards/popular_card.dart';
-import '../../core/models/popular_model.dart';
+import 'package:movie_previewer/core/models/cast_model.dart';
+import 'package:movie_previewer/widgets/model_cards/cast_card.dart';
 
-class DisplayPopularMovies extends StatelessWidget {
-  const DisplayPopularMovies({super.key, required this.popularModel});
+class DisplayCastCard extends StatefulWidget {
+  const DisplayCastCard({Key? key, required this.castModel}) : super(key: key);
+  final Future<CastModel> castModel;
 
-  final Future<PopularModel> popularModel;
+  @override
+  State<DisplayCastCard> createState() => _DisplayCastCardState();
+}
 
+class _DisplayCastCardState extends State<DisplayCastCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 310,
-      child: FutureBuilder<PopularModel>(
-          future: popularModel,
+      height: 150,
+      child: FutureBuilder(
+          future: widget.castModel,
           builder: ((context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.none:
@@ -27,18 +31,18 @@ class DisplayPopularMovies extends StatelessWidget {
                 if (snapshot.hasError) {
                   return const Center(
                     child: Text(
-                      'Unable to retrieve data, please refresh',
+                      'Unable to casts data, please refresh',
                       style: TextStyle(
                           color: Colors.red, fontWeight: FontWeight.w500),
                     ),
                   );
                 } else if (snapshot.hasData) {
-                  if (snapshot.data!.results == null) {
+                  if (snapshot.data!.cast == null) {
                     return const Center(
                       child: Text('Oops! an error occured 🥴'),
                     );
                   } else {
-                    return PopularCard(data: snapshot.data!);
+                    return CastCard(snapshot: snapshot.data!);
                   }
                 } else {
                   return const Text('No Internet Connection');

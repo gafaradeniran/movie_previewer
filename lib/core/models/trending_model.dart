@@ -64,7 +64,7 @@ class Result {
   String? backdropPath;
   int? id;
   String? title;
-  OriginalLanguage? originalLanguage;
+  String? originalLanguage;
   String? originalTitle;
   String? overview;
   String? posterPath;
@@ -82,7 +82,7 @@ class Result {
         id: json["id"],
         title: json["title"],
         originalLanguage:
-            originalLanguageValues.map![json["original_language"]],
+            json["original_language"],
         originalTitle: json["original_title"],
         overview: json["overview"],
         posterPath: json["poster_path"],

@@ -3,8 +3,8 @@ import 'package:movie_previewer/widgets/model_cards/trending_card.dart';
 import '../../core/models/trending_model.dart';
 
 class DisplayTrendingMovies extends StatelessWidget {
-  const DisplayTrendingMovies(
-      {Key? key, required Future<TrendingModel> trendingModel})
+  const DisplayTrendingMovies({
+      Key? key, required Future<TrendingModel> trendingModel})
       : _trendingModel = trendingModel,
         super(key: key);
 
@@ -36,7 +36,7 @@ class DisplayTrendingMovies extends StatelessWidget {
                     ),
                   );
                 } else if (snapshot.hasData) {
-                  if (snapshot.data!.results == null) {
+                  if (snapshot.data!.results == null) { 
                     return const Center(
                       child: Text('Oops! an error occured 🥴'),
                     );
