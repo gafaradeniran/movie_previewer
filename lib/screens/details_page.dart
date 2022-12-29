@@ -21,7 +21,7 @@ class DetailsPage extends StatefulWidget {
   final String? posterImg, overview, originalLang, originalTitle;
   final bool? adult;
   final int? id;
-  final DateTime? releaseDate;
+  final String? releaseDate;
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
@@ -43,6 +43,7 @@ class _DetailsPageState extends State<DetailsPage> {
     return Scaffold(
       backgroundColor: Colors.pink,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         title: Text(
           'Movie Details',
           style: GoogleFonts.poppins(fontSize: 20),
@@ -61,7 +62,7 @@ class _DetailsPageState extends State<DetailsPage> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
+              child: SizedBox(
                 height: MediaQuery.of(context).size.height * 0.4,
                 width: double.infinity,
                 child: Row(
@@ -115,7 +116,7 @@ class _DetailsPageState extends State<DetailsPage> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.6,
+              height: MediaQuery.of(context).size.height * 0.7,
               width: double.infinity,
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -133,18 +134,18 @@ class _DetailsPageState extends State<DetailsPage> {
                       style: detailsHeader,
                     ),
                     Text(widget.overview!, style: detailsBody, softWrap: true),
-                    // Text(widget.overview),
+                    const SizedBox(height: 8),
                     Text(
                       'Casts',
                       style: detailsHeader,
                     ),
-
+                    const SizedBox(height: 6),
                     DisplayCastCard(castModel: castModel),
-
                     Text(
                       'Similar Movies',
                       style: detailsHeader,
                     ),
+                    const SizedBox(height: 6),
                     DisplaySimilarCard(similarModel: similarModel)
                   ],
                 ),

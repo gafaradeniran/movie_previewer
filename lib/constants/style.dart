@@ -9,3 +9,4 @@ final TextStyle detailsBody = GoogleFonts.poppins(
   color: Colors.grey,
 );
 final TextStyle castName = GoogleFonts.secularOne(color: Colors.black); 
+final TextStyle searchTitle = GoogleFonts.zenDots(fontSize: 18);

@@ -22,7 +22,7 @@ class _SimilarMoviesCardState extends State<SimilarMoviesCard> {
             decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
-                      '$imageUrl${widget.similarMovieData.results![index].posterPath!}'),
+                      '$imageUrl${widget.similarMovieData.results![index].posterPath}'),
                 ),
                 borderRadius: BorderRadius.circular(15)),
           );

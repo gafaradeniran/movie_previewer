@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:movie_previewer/core/models/cast_model.dart';
 import 'package:movie_previewer/core/models/genres_model.dart';
 import 'package:movie_previewer/core/models/latest_model.dart';
+import 'package:movie_previewer/core/models/search_model.dart';
 import 'package:movie_previewer/core/models/similar_movies_model.dart';
 import 'package:movie_previewer/core/models/trending_model.dart';
 import 'package:movie_previewer/core/models/popular_model.dart';
@@ -147,6 +148,25 @@ class ApiService extends BaseApi {
       return SimilarMoviesModel(results: res['results']);
     } catch (e) {
       return SimilarMoviesModel();
+    }
+  }
+
+  @override
+  Future<SearchModel> searchApi(String? query) async {
+    String searchUrl =
+        'https://api.themoviedb.org/3/search/movie?api_key=126ebb02e23df3aeea5c466d49e6fd10&query=$query&page=1';
+
+    try {
+      final response = await http.get(Uri.parse(searchUrl));
+      final res = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        SearchModel searchModel = searchModelFromJson(response.body);
+        return SearchModel(results: searchModel.results);
+      }
+      print(response.body);
+      return SearchModel(results: res['results']);
+    } catch (ex) {
+      return SearchModel();
     }
   }
 }

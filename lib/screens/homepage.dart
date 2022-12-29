@@ -3,9 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_previewer/core/api_service.dart';
 import 'package:movie_previewer/core/models/latest_model.dart';
 import 'package:movie_previewer/core/models/trending_model.dart';
+import 'package:movie_previewer/screens/search_page.dart';
 import 'package:movie_previewer/widgets/display_cards/display_latest_movie.dart';
-
 import '../core/models/popular_model.dart';
+import '../core/models/search_model.dart';
 import '../widgets/display_cards/display_popular_card.dart';
 import '../widgets/display_cards/display_trending_card.dart';
 
@@ -41,7 +42,9 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                showSearch(context: context, delegate: SearchPage());
+              },
               icon: const Icon(
                 Icons.search,
                 color: Colors.white,
@@ -74,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 image: AssetImage('asset/bg/page_bg.png'),
               )),
               child: Text(
-                'Trending Movies', 
+                'Trending Movies',
                 style: GoogleFonts.oleoScript(fontSize: 20, color: Colors.grey),
               ),
             ),

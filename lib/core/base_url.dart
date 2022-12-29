@@ -6,5 +6,7 @@ class BaseUrl {
   String popularUrl = '$baseUrl/movie/popular?api_key=$apiKey';
   String genresUrl = '$baseUrl/genre/movie/list?api_key=$apiKey';
   String latestUrl = '$baseUrl/movie/latest?api_key=$apiKey';
-  // String castUrl = '$baseUrl/movie/id/credits?api_key=$apiKey';
+  String castUrl = '$baseUrl/movie/550/credits?api_key=$apiKey';
+  String searchUrl =
+      '$baseUrl/search/movie?api_key=$apiKey&query=film&page=1';
 }

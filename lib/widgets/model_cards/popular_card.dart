@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_previewer/core/models/popular_model.dart';
 import 'package:movie_previewer/screens/details_page.dart';
 
