@@ -10,7 +10,7 @@ class DisplayPopularMovies extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 310,
+      height: 290,
       child: FutureBuilder<PopularModel>(
           future: popularModel,
           builder: ((context, snapshot) {

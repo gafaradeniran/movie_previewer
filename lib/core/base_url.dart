@@ -7,6 +7,7 @@ class BaseUrl {
   String genresUrl = '$baseUrl/genre/movie/list?api_key=$apiKey';
   String latestUrl = '$baseUrl/movie/latest?api_key=$apiKey';
   String castUrl = '$baseUrl/movie/550/credits?api_key=$apiKey';
-  String searchUrl =
-      '$baseUrl/search/movie?api_key=$apiKey&query=film&page=1';
+  String searchUrl = '$baseUrl/search/movie?api_key=$apiKey&query=film&page=1';
+  String videoUrl =
+      'https://api.themoviedb.org/3/movie/550/videos?api_key=126ebb02e23df3aeea5c466d49e6fd10';
 }

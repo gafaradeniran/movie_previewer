@@ -11,6 +11,7 @@ import 'package:movie_previewer/core/models/search_model.dart';
 import 'package:movie_previewer/core/models/similar_movies_model.dart';
 import 'package:movie_previewer/core/models/trending_model.dart';
 import 'package:movie_previewer/core/models/popular_model.dart';
+import 'package:movie_previewer/core/models/video_model.dart';
 
 BaseUrl url = BaseUrl();
 
@@ -163,10 +164,27 @@ class ApiService extends BaseApi {
         SearchModel searchModel = searchModelFromJson(response.body);
         return SearchModel(results: searchModel.results);
       }
-      print(response.body);
       return SearchModel(results: res['results']);
     } catch (ex) {
       return SearchModel();
+    }
+  }
+
+  @override
+  Future<VideoModel> videoApi(int? movieId) async {
+    String videoUrl =
+        'https://api.themoviedb.org/3/movie/$movieId/videos?api_key=126ebb02e23df3aeea5c466d49e6fd10';
+
+    try {
+      final response = await http.get(Uri.parse(videoUrl));
+      final res = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        VideoModel videoModel = videoModelFromJson(response.body);
+        return VideoModel(results: videoModel.results);
+      }
+      return VideoModel(results: res['results'], id: res['id']);
+    } catch (e) {
+      throw UnimplementedError(e.toString());
     }
   }
 }

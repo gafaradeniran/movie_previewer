@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_previewer/core/models/popular_model.dart';
 import 'package:movie_previewer/screens/details_page.dart';
 
@@ -11,6 +12,7 @@ class PopularCard extends StatefulWidget {
 
 class _PopularCardState extends State<PopularCard> {
   String imageUrl = 'http://image.tmdb.org/t/p/original';
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -37,7 +39,7 @@ class _PopularCardState extends State<PopularCard> {
                         )));
           },
           child: SizedBox(
-            height: 300,
+            height: 280,
             width: 220,
             child: Card(
               margin: const EdgeInsets.all(10),
@@ -53,14 +55,14 @@ class _PopularCardState extends State<PopularCard> {
                     width: 220,
                     fit: BoxFit.cover,
                   ),
-                  // Text(
-                  //   'Released ${widget.data.results![index].releaseDate}',
-                  //   style: GoogleFonts.heebo(
-                  //       fontSize: 16,
-                  //       fontWeight: FontWeight.bold,
-                  //       color: Colors.white38),
-                  //   softWrap: true,
-                  // ),
+                  Text(
+                    'Released ${widget.data.results![index].releaseDate}',
+                    style: GoogleFonts.heebo(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    softWrap: true,
+                  ),
                 ],
               ),
             ),

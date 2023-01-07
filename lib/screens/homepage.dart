@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:movie_previewer/core/api_service.dart';
 import 'package:movie_previewer/core/models/latest_model.dart';
 import 'package:movie_previewer/core/models/trending_model.dart';
 import 'package:movie_previewer/screens/search_page.dart';
 import 'package:movie_previewer/widgets/display_cards/display_latest_movie.dart';
 import '../core/models/popular_model.dart';
-import '../core/models/search_model.dart';
 import '../widgets/display_cards/display_popular_card.dart';
 import '../widgets/display_cards/display_trending_card.dart';
 
@@ -22,6 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late Future<TrendingModel> _trendingModel;
   late Future<PopularModel> popularModel;
   late Future<LatestModel> latestModel;
+  final hivedb = Hive.box('darkMode');
   @override
   void initState() {
     super.initState();
@@ -41,6 +42,17 @@ class _MyHomePageState extends State<MyHomePage> {
             Text("Movie Parade", style: GoogleFonts.lobsterTwo(fontSize: 30)),
         centerTitle: true,
         actions: [
+          ValueListenableBuilder(
+              valueListenable: Hive.box('darkMode').listenable(),
+              builder: (context, Box box, child) {
+                bool getModeValue = box.get('darkMode', defaultValue: true);
+                return Switch(
+                    activeColor: Colors.black, 
+                    value: getModeValue,
+                    onChanged: (value) {
+                      box.put('darkMode', !getModeValue);
+                    });
+              }),
           IconButton(
               onPressed: () {
                 showSearch(context: context, delegate: SearchPage());
@@ -55,6 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.10,

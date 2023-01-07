@@ -17,7 +17,7 @@ class _SimilarMoviesCardState extends State<SimilarMoviesCard> {
         itemCount: widget.similarMovieData.results!.length,
         itemBuilder: (context, index) {
           return Container(
-            height: 120,
+            height: 150,
             width: 100,
             decoration: BoxDecoration(
                 image: DecorationImage(
