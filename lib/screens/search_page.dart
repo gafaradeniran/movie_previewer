@@ -7,16 +7,7 @@ import 'package:movie_previewer/screens/details_page.dart';
 class SearchPage extends SearchDelegate {
   ApiService apiService = ApiService();
   String imageUrl = 'http://image.tmdb.org/t/p/original';
-  @override
-  ThemeData appBarTheme(BuildContext context) {
-    return ThemeData(
-      appBarTheme: const AppBarTheme(
-        
-        color: Colors.pink,
-        elevation: 0,
-      ),
-    );
-  }
+ 
 
   @override
   List<Widget> buildActions(BuildContext context) {

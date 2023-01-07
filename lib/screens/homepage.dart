@@ -34,10 +34,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.pink,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.pink,
         title:
             Text("Movie Parade", style: GoogleFonts.lobsterTwo(fontSize: 30)),
         centerTitle: true,
@@ -47,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
               builder: (context, Box box, child) {
                 bool getModeValue = box.get('darkMode', defaultValue: true);
                 return Switch(
-                    activeColor: Colors.black, 
+                    activeColor: Colors.black,
                     value: getModeValue,
                     onChanged: (value) {
                       box.put('darkMode', !getModeValue);

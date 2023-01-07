@@ -58,9 +58,7 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.pink,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         title: Text(
           'Movie Details',
           style: GoogleFonts.poppins(fontSize: 20),
@@ -139,7 +137,8 @@ class _DetailsPageState extends State<DetailsPage> {
                               ),
                               label: const Text(
                                 'Watch Trailer',
-                                style: TextStyle(fontSize: 18),
+                                style: TextStyle(
+                                    fontSize: 22, color: Colors.black),
                               )),
                           const Spacer(),
                         ],

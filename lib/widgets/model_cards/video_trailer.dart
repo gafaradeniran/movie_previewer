@@ -19,8 +19,12 @@ class _VideoTrailerDisplayState extends State<VideoTrailerDisplay> {
     // var url = 'https://www.youtube.com/watch?v=${widget.keys}';
     videoController = YoutubePlayerController(
       initialVideoId: widget.keys,
-    );
-
+      flags: const YoutubePlayerFlags(
+        mute: false,
+        autoPlay: true,
+        enableCaption: true,
+      ),
+    )..addListener(() {});
     super.initState();
   }
 
@@ -39,7 +43,11 @@ class _VideoTrailerDisplayState extends State<VideoTrailerDisplay> {
   @override
   Widget build(BuildContext context) {
     return YoutubePlayerBuilder(
-        player: YoutubePlayer(controller: videoController),
+        player: YoutubePlayer(
+          controller: videoController,
+          showVideoProgressIndicator: true,
+          progressIndicatorColor: Colors.red,
+        ),
         builder: (context, player) {
           return Scaffold(
               appBar: AppBar(
@@ -50,8 +58,6 @@ class _VideoTrailerDisplayState extends State<VideoTrailerDisplay> {
                       Navigator.pop(context);
                     },
                     icon: const Icon(Icons.arrow_back_ios)),
-                elevation: 0,
-                backgroundColor: Colors.pink,
               ),
               body: ListView(
                 children: [

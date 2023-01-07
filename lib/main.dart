@@ -24,9 +24,15 @@ class _MyAppState extends State<MyApp> {
           bool getModeValue = box.get('darkMode', defaultValue: true);
           return MaterialApp(
             title: 'Movie Parade',
-            themeMode: getModeValue ? ThemeMode.light : ThemeMode.dark,
+            themeMode: getModeValue ? ThemeMode.dark : ThemeMode.light,
             darkTheme: ThemeData.dark(),
-            theme: ThemeData(),
+            theme: ThemeData(
+              appBarTheme: const AppBarTheme(
+                color: Colors.pink,
+                elevation: 0,
+              ),
+              scaffoldBackgroundColor: Colors.pink,
+            ),
             home: const MyHomePage(),
             debugShowCheckedModeBanner: false,
           );
